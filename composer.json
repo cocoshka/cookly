@@ -1,0 +1,18 @@
+{
+    "name": "cocoshka/cookly",
+    "description": "A web application for sharing and discovering culinary recipes",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Cookly\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marcin Kokoszka"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*"
+    }
+}
