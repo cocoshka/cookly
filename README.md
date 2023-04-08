@@ -22,6 +22,9 @@ docker compose exec php sh -c XDEBUG_MODE=off composer install
 
 That's it! Once the server is running, open your web browser and go to [http://localhost:8080](http://localhost:8080) to view the application.
 
+## Design
+
+User interface was created in [Figma](https://www.figma.com/file/dpuBvr6W8zcT3sBPnvVKJA/Cookly?node-id=0%3A1&t=98dWTh7cWImyyBs2-1) and then implemented in HTML, CSS and JavaScript (without any frameworks and preprocessors). Final results can differ a bit.
 
 ## Authors
 

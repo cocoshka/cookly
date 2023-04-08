@@ -1,0 +1,715 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #e09400;
+  --primary-hover: #f2aa09;
+  --primary-focus: #fff5db;
+  --outline: #ececed;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+/* Grow wrap for textarea */
+
+.grow-wrap {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+  display: grid;
+}
+.grow-wrap::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) " ";
+
+  /* This is how textarea text behaves */
+  white-space: pre-wrap;
+
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+}
+.grow-wrap > textarea {
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+}
+.grow-wrap > textarea,
+.grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid black;
+  padding: 0.5rem;
+  font: inherit;
+
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.h1 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.h2 {
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 11px 16px;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  background-color: white;
+
+  min-height: 48px;
+  min-width: 48px;
+
+  border-radius: 12px;
+  border: 1px solid var(--outline);
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+}
+
+.button:focus {
+  outline: 4px solid var(--outline);
+}
+
+.button:hover {
+  background-color: #F8F8F8;
+  cursor: pointer;
+}
+
+.button--fill {
+  width: 100%;
+}
+
+.button--primary {
+  background-color: var(--primary);
+  border-color: transparent;
+  color: white;
+}
+
+.button--primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.button--primary:focus  {
+  outline-color: var(--primary-focus);
+}
+
+.button-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid var(--outline);
+  box-shadow: 0 16px 20px -8px rgba(17, 12, 34, 0.1);
+}
+
+.button-menu .button {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+}
+
+.button-menu .button:not(:first-child) {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 1px solid var(--outline);
+}
+
+.button--opened > .button-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.form-item {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.form-item__label {
+  display: block;
+  margin-bottom: 8px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.form-item__space {
+  margin-bottom: 8px;
+}
+
+.form-item__input {
+  display: block;
+  width: 100%;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 10px;
+
+  height: 48px;
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.input:has(:focus-visible) {
+  border-color: var(--primary);
+}
+
+.input > input {
+  border-color: transparent;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  width: 100%;
+}
+
+.input--textarea {
+  min-height: 48px;
+  height: auto;
+}
+
+.input--textarea .grow-wrap {
+  width: 100%;
+}
+
+.input--textarea .grow-wrap textarea, .input--textarea .grow-wrap::after,
+.input--textarea .grow-wrap:focus-visible textarea, .input--textarea .grow-wrap:focus-visible::after {
+  padding: 0;
+  border: 0;
+  outline-color: transparent;
+}
+
+.input > input[type="file"]::-webkit-file-upload-button {
+  display: none;
+}
+
+.input > input:focus-visible {
+  outline-color: transparent;
+}
+
+.radio-group {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--outline);
+}
+
+.radio-group input {
+  display: none;
+}
+
+.radio-group label {
+  padding: 8px 16px;
+  user-select: none;
+  height: 100%;
+  border-radius: 12px;
+  line-height: 30px;
+}
+
+.radio-group label:not(:first-of-type) {
+  border-left: 1px solid var(--outline);
+}
+
+.radio-group label:last-of-type {
+  border-radius: 0 12px 12px 0;
+}
+
+.radio-group label:first-of-type {
+  border-radius: 12px 0 0 12px;
+}
+
+.radio-group input:checked + label {
+  background-color: var(--primary);
+  color: white;
+}
+
+.link {
+  display: inline-block;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: #4f4b5c;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.link:hover {
+  color: var(--primary-hover);
+  border-bottom: 2px solid var(--primary-hover);
+}
+
+.auth-container {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  height: 100%;
+  justify-items: center;
+  padding: 16px 0;
+  overflow: auto;
+}
+
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px;
+  padding-bottom: 0;
+  border-radius: 12px;
+  gap: 32px;
+}
+
+.auth-form {
+  display: block;
+  justify-self: center;
+}
+
+.auth-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.auth-caption {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.signup-link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.signup-link .link {
+  margin-left: 8px;
+}
+
+.container {
+  display: grid;
+  padding-top: 80px;
+  height: 100%;
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.menu {
+  display: none;
+  pointer-events: all;
+  overflow-y: auto;
+}
+
+.menu-opened .menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.menu-close-icon {
+  display: none;
+}
+
+.menu-opened .menu-open-icon {
+  display: none;
+}
+
+.menu-opened .menu-close-icon {
+  display: initial;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list > li {
+  list-style: none;
+  border-radius: 12px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+  text-indent: initial;
+}
+
+.list > li > a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.list > li > a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.list > li:hover {
+  background: #F8F8F8;
+}
+
+.list > li.active {
+  background: var(--primary-focus);
+  color: var(--primary);
+}
+
+.list-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.nav > .list {
+  padding: 16px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+  border-top: 1px solid var(--outline);
+  gap: 16px;
+}
+
+.account {
+  display: grid;
+  align-self: center;
+  gap: 8px;
+  column-gap: 16px;
+  grid-template:
+    "avatar username"
+    "avatar role" / min-content;
+}
+
+.profile > .list {
+  text-align: center;
+  padding: 0 16px 16px;
+}
+
+.avatar {
+  display: block;
+  width: 48px;
+  height: 48px;
+  grid-area: avatar;
+  border-radius: 100%;
+}
+
+.username {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  grid-area: username;
+}
+
+.role {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  grid-area: role;
+}
+
+.main {
+  padding: 16px;
+  overflow: auto;
+}
+
+.search-bar {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr min-content;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.top-bar--column {
+  flex-direction: column;
+}
+
+.page-title {
+  padding-bottom: 8px;
+}
+
+.recipes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+  flex-direction: column;
+  gap: 32px;
+}
+
+.recipe-card {
+  display: block;
+  text-decoration: none;
+  color: initial;
+  min-height: 256px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 16px 20px -8px rgba(17, 12, 34, 0.1);
+  border: 1px solid var(--outline);
+}
+
+.recipe-card__thumbnail {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.recipe-card__thumbnail::before {
+  display: block;
+  content: '';
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+
+.recipe-card__thumbnail img {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.recipe-card__content {
+  padding: 8px;
+}
+
+.recipe-card__content .stars {
+  margin-top: 8px;
+}
+
+.recipe-card__author {
+  text-align: right;
+  padding: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+  width: 100%;
+  background-color: white;
+  padding: 16px;
+  border-bottom: 1px solid var(--outline);
+  pointer-events: all;
+}
+
+.stars {
+  display: flex;
+  font-size: 20px;
+  color: var(--primary)
+}
+
+.recipe-details .stars{
+  justify-content: left;
+}
+
+.recipe-details__image {
+  max-width: 600px;
+  border-radius: 12px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.recipe-details__description {
+  margin-top: 8px;
+}
+
+.recipe-details__recipe {
+  margin-top: 16px;
+}
+
+.recipe-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details-preview {
+  display: none;
+}
+
+[data-radio-preview="1"] .details-preview + * {
+  display: none;
+}
+
+[data-radio-preview="1"] .details-preview {
+  display: block;
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    margin-top: 0;
+  }
+
+  .container {
+    padding-top: 0;
+  }
+
+  .header {
+    justify-content: center;
+  }
+
+  .logo {
+    justify-self: center;
+  }
+
+  .auth-container {
+    align-items: center;
+  }
+
+  .auth-spacer {
+    display: none;
+  }
+
+  .auth-box {
+    padding: 64px;
+    border: 1px solid var(--outline);
+    justify-content: center;
+  }
+
+  .auth-form {
+    width: 512px;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .container {
+    grid-template-rows: 1fr;
+    grid-template-columns: min-content 1fr;
+  }
+
+  .panel {
+    position: initial;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    width: 300px;
+    border-right: 1px solid var(--outline);
+    border-bottom: none;
+    justify-content: stretch;
+    padding-top: 16px;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: initial;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .header {
+    border-bottom: none;
+  }
+
+  .top-bar {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .top-bar--column {
+    flex-direction: column;
+  }
+
+  .main {
+    padding: 32px;
+  }
+
+  .page-title {
+    padding-bottom: 0;
+  }
+
+  .recipe-card {
+    /*max-width: 326px;*/
+  }
+
+  .recipes {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
