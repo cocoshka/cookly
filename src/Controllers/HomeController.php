@@ -4,8 +4,13 @@ namespace Cookly\Controllers;
 
 class HomeController extends BaseController
 {
-  public function home()
+  public function explore()
   {
-    $this->render('views/home');
+    $this->render('views/explore');
+  }
+
+  public function recipes()
+  {
+    $this->render('views/recipes');
   }
 }
