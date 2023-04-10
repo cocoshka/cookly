@@ -32,8 +32,8 @@
     <div class="profile">
       <div class="account">
         <img class="avatar" src="/assets/avatar.png">
-        <div class="username">Marcin Kokoszka</div>
-        <div class="role">Administrator</div>
+        <div class="username"><?= $user->getName() ?></div>
+        <div class="role"><?= $user->getRoleName()  ?></div>
       </div>
       <ul class="list">
         <li>

@@ -47,6 +47,10 @@
             <input class="form-item__input" type="password" name="repeat_password" />
           </div>
         </label>
+
+        <div class="auth-message message message--error">
+          <?= $message ?? '' ?>
+        </div>
         
         <input class="button button--primary button--fill" type="submit" value="Let's explore" />
       </form>
