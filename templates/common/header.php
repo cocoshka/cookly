@@ -1,3 +1,12 @@
+<?php
+function isRouteActive($path): ?string
+{
+  global $route;
+  return $route == $path ? 'active' : null;
+}
+
+?>
+
 <div class="panel">
   <header class="header">
     <img class="logo" src="../assets/cookly.svg" alt="Cookly logo">
@@ -9,19 +18,19 @@
   <div class="menu">
     <nav class="nav">
       <ul class="list">
-        <li class="active">
+        <li class="<?= isRouteActive('') ?>">
           <a href="/">
             <i class="list-icon fa-solid fa-globe"></i>
             Explore
           </a>
         </li>
-        <li>
+        <li class="<?= isRouteActive('create') ?>">
           <a href="/create">
             <i class="list-icon fa-solid fa-scroll"></i>
             Create
           </a>
         </li>
-        <li>
+        <li class="<?= isRouteActive('recipes') ?>">
           <a href="/recipes">
             <i class="list-icon fa-solid fa-book"></i>
             Your recipes
@@ -33,7 +42,7 @@
       <div class="account">
         <img class="avatar" src="/assets/avatar.png">
         <div class="username"><?= $user->getName() ?></div>
-        <div class="role"><?= $user->getRoleName()  ?></div>
+        <div class="role"><?= $user->getRoleName() ?></div>
       </div>
       <ul class="list">
         <li>
