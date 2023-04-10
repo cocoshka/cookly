@@ -26,11 +26,13 @@ class BaseController
     return $this->request === 'POST';
   }
 
-  protected function isAuthenticated(): bool {
+  protected function isAuthenticated(): bool
+  {
     return isset($_SESSION['user_id']);
   }
 
-  protected function getCurrentUser(): ?User {
+  protected function getCurrentUser(): ?User
+  {
     $user_id = $_SESSION['user_id'];
     if (!$user_id) return null;
     return $this->userRepo->getUser($user_id);

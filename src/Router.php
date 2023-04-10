@@ -11,9 +11,10 @@ class Router
     $this->routes[$route] = [$controller, $action];
   }
 
-  public function run(string $route)
+  public function run(string $path)
   {
-    $route = explode("/", $route)[0];
+    global $route;
+    $route = explode("/", $path)[0];
     if (!array_key_exists($route, $this->routes)) {
       http_response_code(404);
       die();
@@ -24,11 +25,6 @@ class Router
 
     session_start();
 
-    $result = $object->$action();
-  }
-
-  public function test()
-  {
-
+    $object->$action();
   }
 }
