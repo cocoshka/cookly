@@ -32,6 +32,10 @@
             <input class="form-item__input" type="password" name="password" />
           </div>
         </label>
+
+        <div class="auth-message message message--error">
+          <?= $message ?? '' ?>
+        </div>
         
         <input class="button button--primary button--fill" type="submit" value="Let's cook" />
       </form>

@@ -2,8 +2,6 @@
 
 namespace Cookly;
 
-use \PDO, \PDOException;
-
 class Database
 {
   private static $instance = null;
@@ -20,10 +18,10 @@ class Database
     $dsn = "pgsql:host=$host;port=$port;dbname=$db";
 
     $options = array(
-      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+      \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
     );
 
-    $this->connection = new PDO(
+    $this->connection = new \PDO(
       $dsn,
       $user,
       $password,
@@ -36,7 +34,7 @@ class Database
     if (self::$instance == null) {
       try {
         self::$instance = new Database();
-      } catch (PDOException $e) {
+      } catch (\PDOException $e) {
         die($e->getMessage());
       }
     }

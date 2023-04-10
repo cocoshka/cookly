@@ -29,7 +29,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./docker/postgres/:/docker-entrypoint-initdb.d:ro
+      - ./docker/postgres/:/docker-entrypoint-initdb.d
 
   adminer:
     image: adminer

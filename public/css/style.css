@@ -618,6 +618,20 @@ body {
   display: block;
 }
 
+.message {
+  text-align: center;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.message--error {
+  color: red
+}
+
+.auth-message {
+  margin: 8px;
+}
+
 @media screen and (min-width: 800px) {
   body {
     margin-top: 0;

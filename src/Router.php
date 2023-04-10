@@ -22,6 +22,8 @@ class Router
     [$controller, $action] = $this->routes[$route];
     $object = new $controller;
 
+    session_start();
+
     $result = $object->$action();
   }
 

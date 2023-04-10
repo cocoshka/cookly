@@ -6,6 +6,11 @@ class ViewController extends BaseController
 {
   public function view()
   {
-    $this->render('views/view');
+    if (!$this->isAuthenticated()) {
+      $this->redirect('/login');
+      return;
+    }
+    $user = $this->getCurrentUser();
+    $this->render('views/view', ['user' => $user]);
   }
 }

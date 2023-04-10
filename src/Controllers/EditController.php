@@ -6,11 +6,21 @@ class EditController extends BaseController
 {
   public function create()
   {
-    $this->render('views/edit');
+    if (!$this->isAuthenticated()) {
+      $this->redirect('/login');
+      return;
+    }
+    $user = $this->getCurrentUser();
+    $this->render('views/edit', ['user' => $user]);
   }
 
   public function edit()
   {
-    $this->render('views/edit');
+    if (!$this->isAuthenticated()) {
+      $this->redirect('/login');
+      return;
+    }
+    $user = $this->getCurrentUser();
+    $this->render('views/edit', ['user' => $user]);
   }
 }
