@@ -2,10 +2,7 @@
 
 namespace Cookly;
 
-use Cookly\Database;
-use Cookly\Router;
-
-use Cookly\Controllers\{HomeController, AuthController, ViewController, EditController};
+use Cookly\Controllers\{AssetsController, HomeController, AuthController, ViewController, EditController};
 
 class App
 {
@@ -25,6 +22,7 @@ class App
     $router->add('login', AuthController::class, 'login');
     $router->add('logout', AuthController::class, 'logout');
     $router->add('signup', AuthController::class, 'signup');
+    $router->add('image', AssetsController::class, 'image');
 
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $path = trim($path, '/');
