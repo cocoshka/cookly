@@ -2,8 +2,18 @@
 
 namespace Cookly\Controllers;
 
+use Cookly\Repositories\RecipeRepository;
+
 class HomeController extends BaseController
 {
+  private RecipeRepository $recipeRepo;
+
+  public function __construct()
+  {
+    parent::__construct();
+    $this->recipeRepo = new RecipeRepository();
+  }
+
   public function explore()
   {
     if (!$this->isAuthenticated()) {
@@ -11,7 +21,8 @@ class HomeController extends BaseController
       return;
     }
     $user = $this->getCurrentUser();
-    $this->render('views/explore', ['user' => $user]);
+    $recipes = $this->recipeRepo->getPublicRecipes();
+    $this->render('views/list', ['user' => $user, 'title' => 'Explore', 'recipes' => $recipes]);
   }
 
   public function recipes()
@@ -21,6 +32,7 @@ class HomeController extends BaseController
       return;
     }
     $user = $this->getCurrentUser();
-    $this->render('views/recipes', ['user' => $user]);
+    $recipes = $this->recipeRepo->getUserRecipes($user->getId());
+    $this->render('views/list', ['user' => $user, 'title' => 'Your recipes', 'recipes' => $recipes]);
   }
 }

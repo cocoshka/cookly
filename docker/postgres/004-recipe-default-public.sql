@@ -1,0 +1,2 @@
+ALTER TABLE public.recipe
+  ALTER COLUMN is_public SET DEFAULT FALSE;

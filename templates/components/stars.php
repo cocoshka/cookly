@@ -1,6 +1,6 @@
 <?php
-function createStars($rate, $max = 5) {
-  $rate ??= 0;
+function createStars(float $rate, $max = 5)
+{
   $stars = round($rate * 2) / 2;
   $full_stars = floor($stars);
   $empty_stars = $max - ceil($stars);
