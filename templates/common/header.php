@@ -40,7 +40,9 @@ function isRouteActive($path): ?string
     </nav>
     <div class="profile">
       <div class="account">
-        <img class="avatar" src="/assets/avatar.png">
+        <div class="avatar">
+          <img src="/assets/avatar.png">
+        </div>
         <div class="username"><?= $user->getName() ?></div>
         <div class="role"><?= $user->getRoleName() ?></div>
       </div>

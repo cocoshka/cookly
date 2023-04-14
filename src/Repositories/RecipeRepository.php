@@ -6,6 +6,64 @@ use Cookly\Models\Recipe;
 
 class RecipeRepository extends Repository
 {
+  public function deleteRecipe(int $recipe_id): bool
+  {
+    $stmt = $this->db->prepare('DELETE FROM public.recipe AS r WHERE r.id = :recipe_id');
+    $stmt->bindParam(":recipe_id", $recipe_id);
+
+    return $stmt->execute();
+  }
+
+  public function updateRecipe(
+    int    $recipe_id,
+    int    $user_id,
+    string $name,
+    string $details,
+    string $image
+  ): bool
+  {
+    $stmt = $this->db->prepare('UPDATE public.recipe AS r SET user_id = :user_id, name = :name, image = :image, details = :details WHERE r.id = :recipe_id');
+    $stmt->bindParam(":recipe_id", $recipe_id);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':details', $details);
+    $stmt->bindParam(':image', $image, \PDO::PARAM_LOB);
+
+    return $stmt->execute();
+  }
+
+  public function publishRecipe(
+    int $recipe_id
+  ): bool
+  {
+    $stmt = $this->db->prepare('UPDATE public.recipe AS r SET is_public = TRUE WHERE r.id = :recipe_id');
+    $stmt->bindParam(":recipe_id", $recipe_id);
+
+    return $stmt->execute();
+  }
+
+  public function unpublishRecipe(
+    int $recipe_id
+  ): bool
+  {
+    $stmt = $this->db->prepare('UPDATE public.recipe AS r SET is_public = FALSE WHERE r.id = :recipe_id');
+    $stmt->bindParam(":recipe_id", $recipe_id);
+
+    return $stmt->execute();
+  }
+
+
+  public function getRecipe(int $recipe_id): Recipe
+  {
+    $stmt = $this->db->prepare('SELECT r.id, r.user_id, uv.name AS user_name, r.name, r.details, r.is_public FROM public.recipe AS r JOIN public.user_view uv on uv.id = r.user_id WHERE r.id = :recipe_id');
+    $stmt->bindParam(":recipe_id", $recipe_id);
+    $stmt->execute();
+
+    $recipe = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+    return $this->toRecipe($recipe);
+  }
+
   public function getPublicRecipes(): array
   {
     $stmt = $this->db->prepare('SELECT r.id, r.user_id, uv.name AS user_name, r.name, r.details, r.is_public FROM public.recipe AS r JOIN public.user_view uv on uv.id = r.user_id WHERE r.is_public = TRUE');

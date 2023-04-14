@@ -57,4 +57,9 @@ class User
   {
     return $this->permissions;
   }
+
+  public function hasPermission(string $perm): bool
+  {
+    return in_array($perm, $this->getPermissions());
+  }
 }
