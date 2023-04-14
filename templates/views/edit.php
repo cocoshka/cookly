@@ -12,9 +12,10 @@
   <?php include(__DIR__ . "/../common/header.php") ?>
   <main class="main">
     <div class="top-bar">
-      <div class="page-title h1">Create</div>
+      <div class="page-title h1"><?= $title ?></div>
     </div>
     <form class="editor" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? '') ?>">
       <label class="form-item">
         <div class="form-item__label">Recipe name</div>
         <div class="input">

@@ -23,7 +23,6 @@ menuButtons?.forEach((btn) => {
 
     btn.classList.toggle("button--opened")
     evt.stopPropagation();
-    evt.preventDefault();
   })
 })
 
@@ -51,5 +50,6 @@ document.addEventListener("data-radio-preview", () => {
 
 const recipeContent = document.getElementById('recipe-content');
 if (!!recipeContent) {
-  recipeContent.innerHTML = md.render("# Details\nThere should be steps to let you cook this meal.")
+  const details = recipeContent.getAttribute("data-md") ?? '';
+  recipeContent.innerHTML = md.render(details);
 }
