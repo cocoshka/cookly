@@ -6,6 +6,8 @@ use Cookly\Models\Recipe;
 
 class RecipeRepository extends Repository
 {
+  const SEARCH_QUERY = ' AND r.search @@ to_tsquery(:search)';
+
   public function deleteRecipe(int $recipe_id): bool
   {
     $stmt = $this->db->prepare('DELETE FROM public.recipe AS r WHERE r.id = :recipe_id');
@@ -76,9 +78,16 @@ class RecipeRepository extends Repository
     return $this->toRecipe($recipe);
   }
 
-  public function getPublicRecipes(): array
+  public function getPublicRecipes(?string $search): array
   {
-    $stmt = $this->db->prepare('SELECT r.id, r.user_id, uv.name AS user_name, r.name, r.details, r.is_public FROM public.recipe AS r JOIN public.user_view uv on uv.id = r.user_id WHERE r.is_public = TRUE');
+    $query = 'SELECT r.id, r.user_id, uv.name AS user_name, r.name, r.details, r.is_public FROM public.recipe AS r JOIN public.user_view uv on uv.id = r.user_id WHERE r.is_public = TRUE';
+    if ($search) {
+      $query .= self::SEARCH_QUERY;
+    }
+    $stmt = $this->db->prepare($query);
+    if ($search) {
+      $stmt->bindParam(':search', $search);
+    }
     $stmt->execute();
 
     $recipes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -86,10 +95,17 @@ class RecipeRepository extends Repository
     return $this->toRecipeArray($recipes);
   }
 
-  public function getUserRecipes(int $user_id): array
+  public function getUserRecipes(int $user_id, ?string $search): array
   {
-    $stmt = $this->db->prepare('SELECT r.id, r.user_id, uv.name AS user_name, r.name, r.details, r.is_public FROM public.recipe AS r JOIN public.user_view uv on uv.id = r.user_id WHERE r.user_id = :user_id');
+    $query = 'SELECT r.id, r.user_id, uv.name AS user_name, r.name, r.details, r.is_public FROM public.recipe AS r JOIN public.user_view uv on uv.id = r.user_id WHERE r.user_id = :user_id';
+    if ($search) {
+      $query .= self::SEARCH_QUERY;
+    }
+    $stmt = $this->db->prepare($query);
     $stmt->bindParam(':user_id', $user_id);
+    if ($search) {
+      $stmt->bindParam(':search', $search);
+    }
     $stmt->execute();
 
     $recipes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
