@@ -41,6 +41,14 @@ Repository also contains ERD diagram available [here](erd.pdf).
 
 Example database data is dumped to [this directory](docker/postgres/dump)
 
+## Screenshots
+
+![Sign up screenshot](docs/img/signup.png)
+![Log in screenshot](docs/img/login.png)
+![Explore screenshot](docs/img/explore.png)
+![View screenshot](docs/img/view.png)
+![Create/edit screenshot](docs/img/edit.png)
+
 ## Authors
 
 [@cocoshka](https://www.github.com/cocoshka)
