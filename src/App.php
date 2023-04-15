@@ -21,6 +21,7 @@ class App
     $router->add('edit', EditController::class, 'edit');
 
     $router->add('view', ViewController::class, 'view');
+    $router->add('rate', ViewController::class, 'rate');
     $router->add('publish', ViewController::class, 'publish');
     $router->add('unpublish', ViewController::class, 'unpublish');
     $router->add('delete', ViewController::class, 'delete');

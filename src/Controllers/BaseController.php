@@ -26,6 +26,26 @@ class BaseController
     return $this->request === 'POST';
   }
 
+  protected function isJson(): bool
+  {
+    $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+    return $contentType === "application/json";
+  }
+
+  protected function getJson(): array
+  {
+    $content = trim(file_get_contents("php://input"));
+    return json_decode($content, true);
+  }
+
+  protected function sendJson($data)
+  {
+    header('Content-type: application/json');
+    http_response_code(200);
+
+    echo json_encode($data);
+  }
+
   protected function isAuthenticated(): bool
   {
     return isset($_SESSION['user_id']);
@@ -40,17 +60,26 @@ class BaseController
 
   protected function render(string $template = null, array $vars = [])
   {
+    $result = $this->execute($template, $vars);
+    if (!$result) {
+      http_response_code(500);
+      return;
+    }
+    print $result;
+  }
+
+  protected function execute(string $template = null, array $vars = [])
+  {
     $path = '../templates/' . $template . '.php';
 
     if (!file_exists($path)) {
-      http_response_code(404);
-      die("404 Not Found");
+      return false;
     };
 
     extract($vars);
     ob_start();
     include $path;
-    print ob_get_clean();
+    return ob_get_clean();
   }
 
   protected function redirect(string $route)
