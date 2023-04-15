@@ -646,12 +646,16 @@ img {
   gap: 16px;
 }
 
-.stars:hover i::before {
+#stars-rate:hover {
+  cursor: pointer;
+}
+
+#stars-rate:hover i::before {
   font-weight: 900;
   content: var(--star);
 }
 
-.stars i:hover ~ i::before {
+#stars-rate i:hover ~ i::before {
   font-weight: 400;
 }
 
