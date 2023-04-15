@@ -39,7 +39,7 @@
           <label class="radio__label" for="radio-preview">Preview</label>
         </div>
         <label class="input input--textarea">
-          <div id="details-preview" class="details-preview markdown"></div>
+          <div id="details-preview" class="details-preview markdown-body"></div>
           <div class="grow-wrap" data-replicated-value="<?= htmlspecialchars($details ?? '') ?>">
             <textarea id="details-markdown" name="details"
                       oninput="this.parentNode.dataset.replicatedValue = this.value"><?= htmlspecialchars($details ?? '') ?></textarea>
