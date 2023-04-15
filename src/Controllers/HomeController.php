@@ -21,8 +21,15 @@ class HomeController extends BaseController
       return;
     }
     $user = $this->getCurrentUser();
-    $recipes = $this->recipeRepo->getPublicRecipes();
-    $this->render('views/list', ['user' => $user, 'title' => 'Explore', 'recipes' => $recipes]);
+
+    $search = $_GET['search'] ?? null;
+
+    $recipes = $this->recipeRepo->getPublicRecipes($search);
+    $this->render('views/list', ['user' => $user,
+      'title' => 'Explore',
+      'recipes' => $recipes,
+      'search' => $search
+    ]);
   }
 
   public function recipes()
@@ -32,7 +39,14 @@ class HomeController extends BaseController
       return;
     }
     $user = $this->getCurrentUser();
-    $recipes = $this->recipeRepo->getUserRecipes($user->getId());
-    $this->render('views/list', ['user' => $user, 'title' => 'Your recipes', 'recipes' => $recipes]);
+
+    $search = $_GET['search'] ?? null;
+
+    $recipes = $this->recipeRepo->getUserRecipes($user->getId(), $search);
+    $this->render('views/list', ['user' => $user,
+      'title' => 'Your recipes',
+      'recipes' => $recipes,
+      'search' => $search
+    ]);
   }
 }
