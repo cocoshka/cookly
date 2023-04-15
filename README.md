@@ -34,12 +34,28 @@ implemented in HTML, CSS and JavaScript (without any frameworks and preprocessor
 
 ## Database
 
-Project uses PostgreSQL database to store data. Structure of database is created from SQL contained in
+Project uses PostgreSQL database to store data. Structure of database is created from SQL located in
 [docker/postgres](docker/postgres) directory. Data dumps will also be available in this directory.
 
-Repository also contains ERD diagram available [here](erd.pdf).
+### Diagram
 
-Example database data is dumped to [this directory](docker/postgres/dump)
+Repository also contains ERD diagram available [ERD](erd.pdf).
+
+### Dump
+
+Example data was dumped to [this directory](docker/postgres/dump).
+
+#### Accounts
+
+Users credentials in provided database dump.
+Passwords are securely encrypted using Blowfish algorithm provided
+by [pgcrypto](https://www.postgresql.org/docs/current/pgcrypto.html) PostgreSQL module.
+
+| Email               | Password  |
+|---------------------|-----------|
+| admin@cookly.pl     | admin     |
+| moderator@cookly.pl | moderator | 
+| member@cookly.pl    | member    | 
 
 ## Screenshots
 
