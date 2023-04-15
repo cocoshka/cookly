@@ -61,7 +61,7 @@
       <?php if ($canRate) { ?>
         <hr>
         <div class="rate-section">
-          <span>Did this recipe delight your taste buds?</span>
+          <span class="h2">Did this recipe delight your taste buds?</span>
           <div id="stars-rate">
             <?php createStars($userRating) ?>
           </div>
