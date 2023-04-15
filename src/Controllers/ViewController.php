@@ -25,7 +25,7 @@ class ViewController extends BaseController
     }
     $user = $this->getCurrentUser();
 
-    $recipe_id = $_GET['id'];
+    $recipe_id = $_GET['id'] ?? null;
 
     if (!$recipe_id) {
       http_response_code(404);
@@ -42,15 +42,76 @@ class ViewController extends BaseController
       return;
     }
 
+    $userRating = $this->recipeRepo->getRecipeUserRating($recipe->getId(), $user->getId());
+
     $this->render('views/view', [
       'user' => $user,
       'recipe' => $recipe,
       'author' => $author,
+      'userRating' => $userRating,
       'canEdit' => $isAuthor,
       'canPublish' => !$recipe->isPublic() && $isAuthor && $user->hasPermission("recipe.publish"),
       'canUnpublish' => $recipe->isPublic() && ($isAuthor || $user->hasPermission("recipe.unpublish")),
       'canDelete' => $isAuthor || $user->hasPermission("recipe.delete"),
+      'canRate' => !$isAuthor,
     ]);
+  }
+
+  public function rate()
+  {
+    if (!$this->isAuthenticated()) {
+      http_response_code(401);
+      return;
+    }
+    $user = $this->getCurrentUser();
+
+    if (!$this->isPost()) {
+      http_response_code(400);
+      return;
+    }
+
+    if (!$this->isJson()) {
+      http_response_code(400);
+      return;
+    }
+
+    $json = $this->getJson();
+
+    $id = $json['id'] ?? null;
+    $stars = $json['stars'] ?? null;
+
+    if (!$id || !$stars) {
+      http_response_code(400);
+      return;
+    }
+
+    $recipe = $this->recipeRepo->getRecipe($id);
+
+    if (!$recipe) {
+      http_response_code(404);
+      return;
+    }
+
+    $isAuthor = $user->getId() === $recipe->getUserId();
+
+    if ($isAuthor) {
+      http_response_code(403);
+      return;
+    }
+
+    $result = $this->recipeRepo->rateRecipe($recipe->getId(), $user->getId(), $stars);
+    if (!$result) {
+      http_response_code(500);
+    }
+
+    $rating = $this->recipeRepo->getRecipeRating($recipe->getId());
+
+    $templates = [
+      'rating' => $this->execute("views/stars", ['stars' => $rating]),
+      'userRating' => $this->execute("views/stars", ['stars' => $stars]),
+    ];
+
+    $this->sendJson($templates);
   }
 
   public function publish()

@@ -9,6 +9,7 @@
   --primary-hover: #f2aa09;
   --primary-focus: #fff5db;
   --outline: #ececed;
+  --star: "\f005";
 }
 
 html,
@@ -635,6 +636,23 @@ img {
 
 .message--error {
   color: red
+}
+
+.rate-section {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  align-items: center;
+  gap: 16px;
+}
+
+.stars:hover i::before {
+  font-weight: 900;
+  content: var(--star);
+}
+
+.stars i:hover ~ i::before {
+  font-weight: 400;
 }
 
 @media screen and (min-width: 800px) {

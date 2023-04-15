@@ -9,13 +9,13 @@ function createStars(float $rate, $max = 5)
 
   <div class="stars">
     <?php for ($i = 0; $i < $full_stars; $i++) { ?>
-      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star fa-fw"></i>
     <?php } ?>
     <?php for ($i = 0; $i < $half_stars; $i++) { ?>
-      <i class="fa-solid fa-star-half-stroke"></i>
+      <i class="fa-regular fa-star-half-stroke fa-fw"></i>
     <?php } ?>
     <?php for ($i = 0; $i < $empty_stars; $i++) { ?>
-      <i class="fa-regular fa-star"></i>
+      <i class="fa-regular fa-star fa-fw"></i>
     <?php } ?>
   </div>
 

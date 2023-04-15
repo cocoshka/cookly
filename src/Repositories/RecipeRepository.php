@@ -14,6 +14,18 @@ class RecipeRepository extends Repository
     return $stmt->execute();
   }
 
+  public function rateRecipe(int $recipe_id, int $user_id, int $stars): bool
+  {
+    $stars = max(1, min($stars, 5));
+
+    $stmt = $this->db->prepare('INSERT INTO public.recipe_stars (recipe_id, user_id, rating) VALUES (:recipe_id, :user_id, :stars) ON CONFLICT (recipe_id, user_id) DO UPDATE SET rating = :stars;');
+    $stmt->bindParam(":recipe_id", $recipe_id);
+    $stmt->bindParam(":user_id", $user_id);
+    $stmt->bindParam(":stars", $stars);
+
+    return $stmt->execute();
+  }
+
   public function updateRecipe(
     int    $recipe_id,
     int    $user_id,
@@ -98,6 +110,22 @@ class RecipeRepository extends Repository
     }
 
     return array_sum($ratings) / count($ratings);
+  }
+
+  public function getRecipeUserRating(int $recipe_id, int $user_id): float
+  {
+    $stmt = $this->db->prepare('SELECT rs.rating FROM public.recipe_stars AS rs WHERE rs.recipe_id = :recipe_id AND rs.user_id = :user_id LIMIT 1');
+    $stmt->bindParam(':recipe_id', $recipe_id);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+
+    $rating = $stmt->fetch(\PDO::FETCH_COLUMN);
+
+    if (!$rating) {
+      return 0;
+    }
+
+    return $rating;
   }
 
   public function getRecipeImage(int $recipe_id)

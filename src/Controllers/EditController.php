@@ -24,8 +24,8 @@ class EditController extends BaseController
     }
     $user = $this->getCurrentUser();
     if ($this->isPost()) {
-      $name = $_POST['name'];
-      $details = $_POST['details'];
+      $name = $_POST['name'] ?? null;
+      $details = $_POST['details'] ?? null;
       $file = $_FILES['image'] ?? null;
       $filename = $file['tmp_name'] ?? null;
 
@@ -112,8 +112,8 @@ class EditController extends BaseController
     }
 
     if ($this->isPost()) {
-      $name = $_POST['name'];
-      $details = $_POST['details'];
+      $name = $_POST['name'] ?? null;
+      $details = $_POST['details'] ?? null;
       $file = $_FILES['image'] ?? null;
       $filename = $file['tmp_name'] ?? null;
 

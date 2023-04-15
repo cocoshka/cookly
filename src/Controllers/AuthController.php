@@ -27,8 +27,8 @@ class AuthController extends BaseController
       return;
     }
     if ($this->isPost()) {
-      $email = $_POST['email'];
-      $password = $_POST['password'];
+      $email = $_POST['email'] ?? null;
+      $password = $_POST['password'] ?? null;
 
       $user_id = $this->userRepo->authenticate($email, $password);
 
@@ -52,10 +52,10 @@ class AuthController extends BaseController
       return;
     }
     if ($this->isPost()) {
-      $name = $_POST['name'];
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-      $repeat_password = $_POST['repeat_password'];
+      $name = $_POST['name'] ?? null;
+      $email = $_POST['email'] ?? null;
+      $password = $_POST['password'] ?? null;
+      $repeat_password = $_POST['repeat_password'] ?? null;
 
       if (!$name || !$email || !$password) {
         $this->render('views/signup', ['message' => "Fill all fields!"]);
