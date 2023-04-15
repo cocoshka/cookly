@@ -75,7 +75,7 @@ starsRate?.addEventListener("click", async (evt) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      id: 7,
+      id: id,
       stars: stars
     })
   }).then(resp => resp.json())
