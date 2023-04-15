@@ -39,6 +39,8 @@ Project uses PostgreSQL database to store data. Structure of database is created
 
 Repository also contains ERD diagram available [here](erd.pdf).
 
+Example database data is dumped to [this directory](docker/postgres/dump)
+
 ## Authors
 
 [@cocoshka](https://www.github.com/cocoshka)
