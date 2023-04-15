@@ -9,6 +9,7 @@
   --primary-hover: #f2aa09;
   --primary-focus: #fff5db;
   --outline: #ececed;
+  --error: red;
   --star: "\f005";
 }
 
@@ -239,6 +240,15 @@ img {
 
 .input > input:focus-visible {
   outline-color: transparent;
+}
+
+.input.invalid {
+  border-color: var(--error);
+}
+
+input[type=submit]:disabled {
+  background-color: var(--outline);
+  color: white;
 }
 
 .radio-group {
