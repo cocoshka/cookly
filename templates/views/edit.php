@@ -19,13 +19,15 @@
       <label class="form-item">
         <div class="form-item__label">Recipe name</div>
         <div class="input">
-          <input class="form-item__input" type="text" name="name" value="<?= htmlspecialchars($name ?? '') ?>"/>
+          <input class="form-item__input" type="text" name="name" required
+                 value="<?= htmlspecialchars($name ?? '') ?>"/>
         </div>
       </label>
       <label class="form-item">
         <div class="form-item__label">Image</div>
         <div class="input">
-          <input class="form-item__input" type="file" name="image" accept="image/png, image/jpeg"/>
+          <input class="form-item__input" type="file" name="image"
+                 accept="image/png, image/jpeg" <?= !isset($id) ? "required" : '' ?>/>
         </div>
       </label>
       <div class="form-item">
