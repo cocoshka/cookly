@@ -107,8 +107,8 @@ class ViewController extends BaseController
     $rating = $this->recipeRepo->getRecipeRating($recipe->getId());
 
     $templates = [
-      'rating' => $this->execute("views/stars", ['stars' => $rating]),
-      'userRating' => $this->execute("views/stars", ['stars' => $stars]),
+      'rating' => $rating,
+      'userRating' => $stars,
     ];
 
     $this->sendJson($templates);

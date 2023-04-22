@@ -81,7 +81,25 @@ starsRate?.addEventListener("click", async (evt) => {
   }).then(resp => resp.json())
 
   document.querySelectorAll(".stars").forEach((el) => {
-    el.innerHTML = resp.rating;
+    // el.innerHTML = resp.rating;
+    updateStars(el, resp.rating);
   })
-  starsRate.innerHTML = resp.userRating;
+  // starsRate.innerHTML = resp.userRating;
+  updateStars(starsRate, resp.userRating)
 })
+
+function updateStars(parentElement, rating) {
+  const stars = parentElement.querySelectorAll("i");
+  stars.forEach((star, i) => {
+    star.classList.remove("fa-solid", "fa-regular", "fa-star", "fa-star-half-stroke");
+
+    const part = rating - i;
+    if (part >= 1) {
+      star.classList.add("fa-solid", "fa-star");
+    } else if (part <= 0) {
+      star.classList.add("fa-regular", "fa-star");
+    } else {
+      star.classList.add("fa-regular", "fa-star-half-stroke");
+    }
+  })
+}
